@@ -19,7 +19,13 @@ function quasarBuild(){
 
 # Processo de build para projetos baseados em cordova puro
 function cordovaBuild(){
-  echo "Not implemented yet"
+    cordova build android --release
+    copyUsignedApk
+    verifyIfExistsKey
+    signApk
+    zipApp
+
+showMessage "BUILD FINALIZADO!! SEJA FELIZ :)"
 }
 
 # Função para exibir mensagens com um certo destaque
@@ -87,6 +93,8 @@ function verifyAndDropIfExists(){
 ##
 
 showMessage 'GENERATING APP BUILD'
+
+## TODO: ler o nome do projeto
 
 # Se for um projeto baseado em quasar haverá um diretório src-cordova
 # verificar se esse diretório existe
