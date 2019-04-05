@@ -1,11 +1,11 @@
 
 #!/bin/bash
 projectFolder='./'
-appname='vetorlog'
 
 
 # Processo de build para projetos baseados em quasar
 function quasarBuild(){
+
     projectFolder='src-cordova'
     cd "$projectFolder" && cordova build android --release
     cd ../ # Voltar para pasta raiz do projeto
@@ -31,7 +31,7 @@ showMessage "BUILD FINALIZADO!! SEJA FELIZ :)"
 # Função para exibir mensagens com um certo destaque
 function showMessage(){
     message=$1
-    echo "########################"
+    echo "\n########################"
     echo $message
     echo "########################\n"
 }
@@ -94,14 +94,23 @@ function verifyAndDropIfExists(){
 
 showMessage 'GENERATING APP BUILD'
 
+## Receber o nome do projeto
+echo "Digite o nome do projeto:"
+echo "em minúsculo, sem espaço e/ou acento\n"
+read appname
+echo "Nome Digitado: $appname"
+
+
 ## TODO: ler o nome do projeto
 
 # Se for um projeto baseado em quasar haverá um diretório src-cordova
 # verificar se esse diretório existe
+
 if [ -d "src-cordova/" ]
 then
  showMessage "QUASAR PROJECT DETECTED"
- quasarBuild --verbose
+ quasarBuild
 else
  showMessage "CORDOVA PROJECT DETECTED"
+ cordovaBuild
 fi
